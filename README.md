@@ -1,4 +1,6 @@
-# tiny-OS
+# Tiny OS
+
+## Redes de Petri
 - **Lugar:** Representa o estado do sistema e é representado por um círculo.
 - **Ficha:** Indica que a condição associada ao lugar é verificada, representada por um ponto.
 - **Transição:** Representa a ocorrência de um evento (transição de estado).
@@ -123,3 +125,6 @@ Em um deadlock, o sistema alcança um estado no qual nenhum progresso adicional 
 Portanto, a fórmula `EF !(EX True)` essencialmente significa que eventualmente, no futuro, existe um estado a partir do qual não há próxima transição de estado, o que é uma característica de um deadlock.
 
 Resultado: Falso
+
+
+`

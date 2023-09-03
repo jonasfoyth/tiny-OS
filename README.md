@@ -1,6 +1,4 @@
 # tiny-OS
-
-## Redes de petri
 - **Lugar:** Representa o estado do sistema e é representado por um círculo.
 - **Ficha:** Indica que a condição associada ao lugar é verificada, representada por um ponto.
 - **Transição:** Representa a ocorrência de um evento (transição de estado).
@@ -20,7 +18,6 @@ A representação formal: R = <P, T, Pre, Pos>
 ∧ = AND
 ∨ = OR
 ¬ = not
-
 ## Computation Tree Logic (CTL)
 
 CTL is a logic for reasoning about properties of state-transition graphs. It can succintly express many properties of sequential circuits and communication protocols. 
@@ -54,11 +51,67 @@ As propriedades de "Liveness" expressam a garantia de que algo bom acontecerá e
 3. **"Sempre que o evento bbb ocorrer, então o evento aaa ocorrerá em algum momento no futuro":** Esta afirmação captura uma relação de causa e efeito entre dois eventos, "bbb" e "aaa". Ela expressa que se o evento "bbb" acontecer, o evento "aaa" ocorrerá eventualmente no futuro. No contexto de processos esperando para entrar em suas seções críticas, isso poderia significar que se um processo estiver esperando ("bbb"), ele eventualmente entrará em sua seção crítica ("aaa").
     
 
-A fórmula:
-`AG (EF (tinyos.T_endLoading or tinyos.T_endUnload or tinyos.T_freeMemory or tinyos.T_startFirst or tinyos.T_startLoading or tinyos.T_startNext or tinyos.T_startUnload or tinyos.T_suspend))` 
+#### 1. Todas transições ocorrem em algum estado
 
-verifica que pelo menos uma das transições especificadas (eventos) eventualmente ocorrerá em qualquer estado alcançável. Esta fórmula afirma: Para todos os estados (AG), existe um estado em que eventualmente (EF) pelo menos uma das transições (T) ocorrerá.
+```
+AG (EF (tinyos.T_endLoading or tinyos.T_endUnload or tinyos.T_freeMemory or tinyos.T_startFirst or tinyos.T_startLoading or tinyos.T_startNext or tinyos.T_startUnload or tinyos.T_suspend))
+``` 
+
+Verifica que pelo menos uma das transições especificadas (eventos) eventualmente ocorrerá em qualquer estado alcançável. Esta fórmula afirma: Para todos os estados (AG), existe um estado em que eventualmente (EF) pelo menos uma das transições (T) ocorrerá.
+
+
+Resultado: Verdadeiro
+
+#### 2. Todas tasks finalizam eventualmente
+
+```
+AG (EF (tinyos.T_startLoading and tinyos.T_endUnload))
+```
+
+Verifica se em todos os estados, o sistema eventualmente chegara em um estado em que tanto a transição "startLoading" quanto "endUnload" ocorrem. Todas as tasks são completadas eventualmente?
+
+Resultado: Verdadeiro
+#### Tasks são executadas indefinidamente
+
+```
+AG (EF tinyos.T_startFirst)
+```
+
+A query verifica que as tasks são executadas Indefinidamente validando a execução da transição "startFirst" que representa o inicio das tasks;
+
+Resultado: Verdadeiro
+#### CPU Utilization
+
+```
+AG (EF tinyos.T_startNext)
+```
+
+Verifica que a transição "startNext" ocorre eventualmente em todos os estados, garantindo a utilização da CPU.
+
+Resultado: Verdadeiro
+#### Tasks entram no estado de "prontas"
+
+```
+AG (EF tinyos.P_TaskReady > 0)
+```
+
+Verifica que as tasks entram no estado de "pronto" eventualmente em todos os estados
+
+Resultado: Verdadeiro
 ### Deadlock check
+
+#### Método 01
+
+```
+AG(EF(deadlock)
+```
+Esta fórmula está verificando duas coisas:
+
+- `EF(deadlock)`: Ela verifica se em algum ponto no futuro (`EF`, "eventually in the future") é possível alcançar um estado em que a fórmula `deadlock` seja verdadeira. Isso significa que verifica se é possível chegar a um estado de deadlock em algum momento.
+- `AG`: Depois de verificar a primeira parte, ela também verifica se a propriedade `EF(deadlock)` é verdadeira em todos os estados ao longo de todos os caminhos (`AG`, "globally for all paths"). Isso significa que não apenas verifica se é possível alcançar um estado de deadlock em algum momento, mas também se essa propriedade é verdadeira em todos os estados e caminhos possíveis.
+
+Resultado: Falso
+#### Método 02
 
 Em um deadlock, o sistema alcança um estado no qual nenhum progresso adicional é possível. Você pode verificar um deadlock ao verificar se existe um estado a partir do qual nenhuma transição de estado é possível.
 
@@ -69,9 +122,4 @@ Em um deadlock, o sistema alcança um estado no qual nenhum progresso adicional 
 
 Portanto, a fórmula `EF !(EX True)` essencialmente significa que eventualmente, no futuro, existe um estado a partir do qual não há próxima transição de estado, o que é uma característica de um deadlock.
 
-Outra maneira:
-
-`AG(EF(deadlock))`: Esta fórmula está verificando duas coisas:
-
-- `EF(deadlock)`: Ela verifica se em algum ponto no futuro (`EF`, "eventually in the future") é possível alcançar um estado em que a fórmula `deadlock` seja verdadeira. Isso significa que verifica se é possível chegar a um estado de deadlock em algum momento.
-- `AG`: Depois de verificar a primeira parte, ela também verifica se a propriedade `EF(deadlock)` é verdadeira em todos os estados ao longo de todos os caminhos (`AG`, "globally for all paths"). Isso significa que não apenas verifica se é possível alcançar um estado de deadlock em algum momento, mas também se essa propriedade é verdadeira em todos os estados e caminhos possíveis.
+Resultado: Falso

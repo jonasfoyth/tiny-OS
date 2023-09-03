@@ -1,14 +1,14 @@
 # tiny-OS
 
-lugar: representa o estado do sistema e é representada por um círculo;
-ficha: indica que a condição associada ao lugar é verificada, representada po um ponto;
-transição a ocorrência de um evento (transição de estado)
-quantidade de recursos: representados por um peso no arco
+## Redes de petri
+- **Lugar:** Representa o estado do sistema e é representado por um círculo.
+- **Ficha:** Indica que a condição associada ao lugar é verificada, representada por um ponto.
+- **Transição:** Representa a ocorrência de um evento (transição de estado).
+- **Quantidade de Recursos:** Representada por um peso no arco.
 
+O estado do sistema é determinado pela distribuição das fichas nos lugares da rede de Petri.
 
-o estado do sistema é dado pela distribuição das fichas nos lugares da rede de petri
-
-a ocrrencia de um evento dispara uma transição na rede e assim muda o estado do sistema
+A ocorrência de um evento dispara uma transição na rede, alterando assim o estado do sistema.
 
 A representação formal: R = <P, T, Pre, Pos>
 
@@ -20,6 +20,7 @@ A representação formal: R = <P, T, Pre, Pos>
 ∧ = AND
 ∨ = OR
 ¬ = not
+
 ## Computation Tree Logic (CTL)
 
 CTL is a logic for reasoning about properties of state-transition graphs. It can succintly express many properties of sequential circuits and communication protocols. 
@@ -44,30 +45,31 @@ Each operator of the logic has two parts:
 
 ### Liveness
 
-Liveness properties express the assurance that something good will happen in a system. They are concerned with ensuring ongoing progress and the occurrence of desirable events over time.
+As propriedades de "Liveness" expressam a garantia de que algo bom acontecerá em um sistema. Elas estão preocupadas em garantir progresso contínuo e a ocorrência de eventos desejáveis ao longo do tempo.
 
-1. **"Event aaa will occur eventually":** This statement is an example of a liveness property. It asserts that a particular event, denoted as "aaa," will happen at some point in the future. In the context of sequential programs, this could relate to the termination of the program, indicating that it will eventually finish executing.
+1. **"O evento aaa ocorrerá eventualmente":** Esta afirmação é um exemplo de uma propriedade de "Liveness". Ela afirma que um evento específico, representado como "aaa", acontecerá em algum momento no futuro. No contexto de programas sequenciais, isso pode estar relacionado com a finalização do programa, indicando que ele eventualmente terminará de executar.
     
-2. **"Event aaa will occur infinitely many times":** This liveness property ensures that the event "aaa" will happen repeatedly and indefinitely. For example, in the context of dining philosophers, it could represent the guarantee that each philosopher will have an opportunity to dine (enter their critical section) an infinite number of times, indicating starvation freedom.
+2. **"O evento aaa ocorrerá infinitamente muitas vezes":** Esta propriedade de "Liveness" assegura que o evento "aaa" acontecerá repetidamente e indefinidamente. Por exemplo, no contexto dos filósofos que jantam, isso poderia representar a garantia de que cada filósofo terá a oportunidade de jantar (entrar em sua seção crítica) um número infinito de vezes, indicando liberdade de inanição.
     
-3. **"Whenever event bbb occurs, then event aaa will occur sometimes in the future":** This statement captures a cause-and-effect relationship between two events, "bbb" and "aaa." It expresses that if event "bbb" happens, event "aaa" will eventually occur in the future. In the context of processes waiting to enter their critical sections, this could mean that if a process is waiting ("bbb"), it will eventually enter its critical section ("aaa").
+3. **"Sempre que o evento bbb ocorrer, então o evento aaa ocorrerá em algum momento no futuro":** Esta afirmação captura uma relação de causa e efeito entre dois eventos, "bbb" e "aaa". Ela expressa que se o evento "bbb" acontecer, o evento "aaa" ocorrerá eventualmente no futuro. No contexto de processos esperando para entrar em suas seções críticas, isso poderia significar que se um processo estiver esperando ("bbb"), ele eventualmente entrará em sua seção crítica ("aaa").
+    
 
+A fórmula:
+`AG (EF (tinyos.T_endLoading or tinyos.T_endUnload or tinyos.T_freeMemory or tinyos.T_startFirst or tinyos.T_startLoading or tinyos.T_startNext or tinyos.T_startUnload or tinyos.T_suspend))` 
 
-
-`AG (EF (tinyos.T_endLoading or tinyos.T_endUnload or tinyos.T_freeMemory or tinyos.T_startFirst or tinyos.T_startLoading or tinyos.T_startNext or tinyos.T_startUnload or tinyos.T_suspend))` checks if there is a liveness property in your system, ensuring that at least one of the specified transitions (events) eventually occurs in any reachable state. This formula states: For all states (AG), there exists a state where eventually (EF) at least one of the transitions (T) will occur+
-
+verifica que pelo menos uma das transições especificadas (eventos) eventualmente ocorrerá em qualquer estado alcançável. Esta fórmula afirma: Para todos os estados (AG), existe um estado em que eventualmente (EF) pelo menos uma das transições (T) ocorrerá.
 ### Deadlock check
 
-In a deadlock, the system reaches a state where no further progress is possible.
-You can check for deadlock by verifying that there exists a state from which no state transition is possible. 
+Em um deadlock, o sistema alcança um estado no qual nenhum progresso adicional é possível. Você pode verificar um deadlock ao verificar se existe um estado a partir do qual nenhuma transição de estado é possível.
 
-- `EF` stands for "Eventually in the Future": It means that at some point in the future, the following condition should hold.
-- `!` represents negation.
-- `EX` stands for "Exists Next": It means there exists a next state where the condition holds.
-- `True` represents the condition that is always true.
+- `EF` significa "Eventualmente no Futuro": Isso significa que em algum ponto no futuro, a seguinte condição deve ser verdadeira.
+- `!` representa a negação.
+- `EX` significa "Existe Próximo": Isso significa que existe um próximo estado no qual a condição é verdadeira.
+- `True` representa a condição que é sempre verdadeira.
 
-So, the formula `EF !(EX True)` essentially means that eventually, in the future, there exists a state from which there is no next state transition, which is a characteristic of a deadlock.
+Portanto, a fórmula `EF !(EX True)` essencialmente significa que eventualmente, no futuro, existe um estado a partir do qual não há próxima transição de estado, o que é uma característica de um deadlock.
 
+Outra maneira:
 
 `AG(EF(deadlock))`: Esta fórmula está verificando duas coisas:
 

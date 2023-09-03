@@ -3,11 +3,11 @@
   <constant name="MT" value="16"/>
   <constant name="DC" value="8"/>
   <net active="true" id="tinyos" type="P/T net">
-    <place displayName="true" id="P_TaskOnDisk" initialMarking="32" invariant="&lt; inf" name="P_TaskOnDisk" nameOffsetX="44" nameOffsetY="-8" positionX="427" positionY="142"/>
+    <place displayName="true" id="P_TaskOnDisk" initialMarking="16" invariant="&lt; inf" name="P_TaskOnDisk" nameOffsetX="44" nameOffsetY="-8" positionX="427" positionY="142"/>
     <place displayName="true" id="P_LoadingMem" initialMarking="0" invariant="&lt; inf" name="P_LoadingMem" nameOffsetX="0" nameOffsetY="0" positionX="270" positionY="300"/>
     <place displayName="true" id="P_DiskControllerUnit" initialMarking="8" invariant="&lt; inf" name="P_DiskControllerUnit" nameOffsetX="0" nameOffsetY="0" positionX="427" positionY="390"/>
     <place displayName="true" id="P_TransferToDisk" initialMarking="0" invariant="&lt; inf" name="P_TransferToDisk" nameOffsetX="0" nameOffsetY="0" positionX="600" positionY="292"/>
-    <place displayName="true" id="P_FreeMemSegment" initialMarking="32" invariant="&lt; inf" name="P_FreeMemSegment" nameOffsetX="0" nameOffsetY="0" positionX="105" positionY="202"/>
+    <place displayName="true" id="P_FreeMemSegment" initialMarking="16" invariant="&lt; inf" name="P_FreeMemSegment" nameOffsetX="0" nameOffsetY="0" positionX="105" positionY="202"/>
     <place displayName="true" id="P_TaskReady" initialMarking="0" invariant="&lt; inf" name="P_TaskReady" nameOffsetX="0" nameOffsetY="0" positionX="277" positionY="472"/>
     <place displayName="true" id="P_CPUUnit" initialMarking="16" invariant="&lt; inf" name="P_CPUUnit" nameOffsetX="0" nameOffsetY="0" positionX="427" positionY="547"/>
     <place displayName="true" id="P_TaskSuspended" initialMarking="0" invariant="&lt; inf" name="P_TaskSuspended" nameOffsetX="0" nameOffsetY="0" positionX="607" positionY="465"/>
@@ -21,8 +21,8 @@
     <transition angle="90" displayName="true" id="T_startNext" infiniteServer="false" name="T_startNext" nameOffsetX="0" nameOffsetY="0" player="0" positionX="472" positionY="465" priority="0" urgent="false"/>
     <transition angle="90" displayName="true" id="T_suspend" infiniteServer="false" name="T_suspend" nameOffsetX="0" nameOffsetY="0" player="0" positionX="607" positionY="555" priority="0" urgent="false"/>
     <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="P_TaskOnDisk" target="T_startLoading" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="427" yCoord="157"/>
-      <arcpath arcPointType="false" id="1" xCoord="298" yCoord="163"/>
+      <arcpath arcPointType="false" id="0" xCoord="427" yCoord="158"/>
+      <arcpath arcPointType="false" id="1" xCoord="302" yCoord="167"/>
       <arcpath arcPointType="false" id="2" xCoord="291" yCoord="211"/>
     </arc>
     <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_startLoading" target="P_LoadingMem" type="normal" weight="1">
@@ -39,22 +39,22 @@
     </arc>
     <arc id="A4" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_startUnload" target="P_TransferToDisk" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="619" yCoord="392"/>
-      <arcpath arcPointType="false" id="1" xCoord="619" yCoord="349"/>
-      <arcpath arcPointType="false" id="2" xCoord="616" yCoord="321"/>
+      <arcpath arcPointType="false" id="1" xCoord="623" yCoord="353"/>
+      <arcpath arcPointType="false" id="2" xCoord="617" yCoord="321"/>
     </arc>
     <arc id="A5" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="P_TransferToDisk" target="T_endUnload" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="614" yCoord="292"/>
-      <arcpath arcPointType="false" id="1" xCoord="611" yCoord="200"/>
+      <arcpath arcPointType="false" id="1" xCoord="606" yCoord="199"/>
     </arc>
     <arc id="A6" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_endUnload" target="P_TaskOnDisk" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="606" yCoord="189"/>
-      <arcpath arcPointType="false" id="1" xCoord="608" yCoord="158"/>
-      <arcpath arcPointType="false" id="2" xCoord="468" yCoord="161"/>
-      <arcpath arcPointType="false" id="3" xCoord="456" yCoord="159"/>
+      <arcpath arcPointType="false" id="1" xCoord="612" yCoord="162"/>
+      <arcpath arcPointType="false" id="2" xCoord="487" yCoord="150"/>
+      <arcpath arcPointType="false" id="3" xCoord="456" yCoord="154"/>
     </arc>
     <arc id="A7" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_endUnload" target="P_DiskControllerUnit" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="601" yCoord="199"/>
-      <arcpath arcPointType="false" id="1" xCoord="506" yCoord="322"/>
+      <arcpath arcPointType="false" id="1" xCoord="510" yCoord="326"/>
       <arcpath arcPointType="false" id="2" xCoord="451" yCoord="393"/>
     </arc>
     <arc id="A8" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="P_DiskControllerUnit" target="T_startLoading" type="timed" weight="1">
@@ -90,19 +90,19 @@
       <arcpath arcPointType="false" id="1" xCoord="291" yCoord="556"/>
     </arc>
     <arc id="A17" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_startFirst" target="P_ExecutingTask" type="normal" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="286" yCoord="566"/>
-      <arcpath arcPointType="false" id="1" xCoord="295" yCoord="661"/>
-      <arcpath arcPointType="false" id="2" xCoord="427" yCoord="646"/>
+      <arcpath arcPointType="false" id="0" xCoord="291" yCoord="566"/>
+      <arcpath arcPointType="false" id="1" xCoord="299" yCoord="665"/>
+      <arcpath arcPointType="false" id="2" xCoord="427" yCoord="647"/>
     </arc>
     <arc id="A18" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="P_ExecutingTask" target="T_suspend" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="456" yCoord="645"/>
-      <arcpath arcPointType="false" id="1" xCoord="631" yCoord="652"/>
+      <arcpath arcPointType="false" id="1" xCoord="635" yCoord="656"/>
       <arcpath arcPointType="false" id="2" xCoord="621" yCoord="574"/>
     </arc>
     <arc id="A19" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_suspend" target="P_TaskSuspended" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="621" yCoord="564"/>
-      <arcpath arcPointType="false" id="1" xCoord="626" yCoord="502"/>
-      <arcpath arcPointType="false" id="2" xCoord="624" yCoord="494"/>
+      <arcpath arcPointType="false" id="1" xCoord="630" yCoord="506"/>
+      <arcpath arcPointType="false" id="2" xCoord="626" yCoord="494"/>
     </arc>
     <arc id="A20" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="P_TaskSuspended" target="T_startUnload" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="620" yCoord="465"/>
@@ -114,23 +114,23 @@
     </arc>
     <arc id="A22" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_startNext" target="P_ExecutingTask" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="486" yCoord="484"/>
-      <arcpath arcPointType="false" id="1" xCoord="497" yCoord="598"/>
-      <arcpath arcPointType="false" id="2" xCoord="453" yCoord="635"/>
+      <arcpath arcPointType="false" id="1" xCoord="501" yCoord="602"/>
+      <arcpath arcPointType="false" id="2" xCoord="454" yCoord="636"/>
     </arc>
     <arc id="A23" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_suspend" target="P_CPUUnit" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="606" yCoord="570"/>
       <arcpath arcPointType="false" id="1" xCoord="456" yCoord="562"/>
     </arc>
     <arc id="A24" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="P_CPUUnit" target="T_startNext" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="440" yCoord="547"/>
-      <arcpath arcPointType="false" id="1" xCoord="436" yCoord="486"/>
+      <arcpath arcPointType="false" id="0" xCoord="441" yCoord="547"/>
+      <arcpath arcPointType="false" id="1" xCoord="440" yCoord="490"/>
       <arcpath arcPointType="false" id="2" xCoord="471" yCoord="480"/>
     </arc>
     <arc id="A26" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_endUnload" target="P_TaskReady" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="601" yCoord="199"/>
-      <arcpath arcPointType="false" id="1" xCoord="506" yCoord="437"/>
-      <arcpath arcPointType="false" id="2" xCoord="359" yCoord="449"/>
-      <arcpath arcPointType="false" id="3" xCoord="305" yCoord="479"/>
+      <arcpath arcPointType="false" id="1" xCoord="510" yCoord="441"/>
+      <arcpath arcPointType="false" id="2" xCoord="363" yCoord="453"/>
+      <arcpath arcPointType="false" id="3" xCoord="305" yCoord="480"/>
     </arc>
     <arc id="A27" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T_freeMemory" target="P_FreeMemSegment" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="119" yCoord="481"/>
@@ -141,7 +141,7 @@
       <arcpath arcPointType="false" id="1" xCoord="306" yCoord="562"/>
     </arc>
   </net>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="0" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Deadlock free - 01" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="0" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Deadlock free - 01" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
       <all-paths>
         <globally>
@@ -154,7 +154,7 @@
       </all-paths>
     </formula>
   </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Deadlock free - 02" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Deadlock free - 02" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
       <exists-path>
         <finally>
@@ -169,7 +169,7 @@
       </exists-path>
     </formula>
   </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="0" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Liveness 1 - All transitions occur" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="0" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Liveness 1 - All transitions occur" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
       <all-paths>
         <globally>
@@ -201,6 +201,74 @@
                   <transition>tinyos.T_suspend</transition>
                 </is-fireable>
               </disjunction>
+            </finally>
+          </exists-path>
+        </globally>
+      </all-paths>
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Liveness 2 - Tasks will be loaded and unloaded" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+    <formula>
+      <all-paths>
+        <globally>
+          <exists-path>
+            <finally>
+              <conjunction>
+                <is-fireable>
+                  <transition>tinyos.T_startLoading</transition>
+                </is-fireable>
+                <is-fireable>
+                  <transition>tinyos.T_endUnload</transition>
+                </is-fireable>
+              </conjunction>
+            </finally>
+          </exists-path>
+        </globally>
+      </all-paths>
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Liveness 3 - Tasks run indefinitely" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+    <formula>
+      <all-paths>
+        <globally>
+          <exists-path>
+            <finally>
+              <is-fireable>
+                <transition>tinyos.T_startFirst</transition>
+              </is-fireable>
+            </finally>
+          </exists-path>
+        </globally>
+      </all-paths>
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Liveness 4 - CPU Utilization" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+    <formula>
+      <all-paths>
+        <globally>
+          <exists-path>
+            <finally>
+              <is-fireable>
+                <transition>tinyos.T_startNext</transition>
+              </is-fireable>
+            </finally>
+          </exists-path>
+        </globally>
+      </all-paths>
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Liveness 5 - TaskRead &gt; 0" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+    <formula>
+      <all-paths>
+        <globally>
+          <exists-path>
+            <finally>
+              <integer-gt>
+                <tokens-count>
+                  <place>tinyos.P_TaskReady</place>
+                </tokens-count>
+                <integer-constant>0</integer-constant>
+              </integer-gt>
             </finally>
           </exists-path>
         </globally>

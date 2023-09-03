@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pnml xmlns="http://www.informatik.hu-berlin.de/top/pnml/ptNetb">
+  <constant name="MT" value="16"/>
+  <constant name="DC" value="8"/>
+  <net active="true" id="TAPN1" type="P/T net">
+    <place displayName="true" id="TaskOnDisk" initialMarking="16" invariant="&lt; inf" name="TaskOnDisk" nameOffsetX="44" nameOffsetY="-8" positionX="431" positionY="144"/>
+    <place displayName="true" id="LoadingMem" initialMarking="0" invariant="&lt; inf" name="LoadingMem" nameOffsetX="0" nameOffsetY="0" positionX="272" positionY="301"/>
+    <place displayName="true" id="DiskControllerUnit" initialMarking="8" invariant="&lt; inf" name="DiskControllerUnit" nameOffsetX="0" nameOffsetY="0" positionX="431" positionY="387"/>
+    <place displayName="true" id="TransferToDisk" initialMarking="0" invariant="&lt; inf" name="TransferToDisk" nameOffsetX="0" nameOffsetY="0" positionX="599" positionY="289"/>
+    <place displayName="true" id="FreeMemSegment" initialMarking="16" invariant="&lt; inf" name="FreeMemSegment" nameOffsetX="0" nameOffsetY="0" positionX="105" positionY="207"/>
+    <place displayName="true" id="TaskReady" initialMarking="0" invariant="&lt; inf" name="TaskReady" nameOffsetX="0" nameOffsetY="0" positionX="274" positionY="472"/>
+    <place displayName="true" id="CPUUnit" initialMarking="16" invariant="&lt; inf" name="CPUUnit" nameOffsetX="0" nameOffsetY="0" positionX="426" positionY="548"/>
+    <place displayName="true" id="TaskSuspended" initialMarking="0" invariant="&lt; inf" name="TaskSuspended" nameOffsetX="0" nameOffsetY="0" positionX="604" positionY="465"/>
+    <place displayName="true" id="ExecutingTask" initialMarking="0" invariant="&lt; inf" name="ExecutingTask" nameOffsetX="0" nameOffsetY="0" positionX="431" positionY="630"/>
+    <transition angle="90" displayName="true" id="startLoading" infiniteServer="false" name="startLoading" nameOffsetX="0" nameOffsetY="0" player="0" positionX="277" positionY="204" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="endLoading" infiniteServer="false" name="endLoading" nameOffsetX="0" nameOffsetY="0" player="0" positionX="277" positionY="384" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="endUnload" infiniteServer="false" name="endUnload" nameOffsetX="0" nameOffsetY="0" player="0" positionX="572" positionY="197" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="startUnload" infiniteServer="false" name="startUnload" nameOffsetX="0" nameOffsetY="0" player="0" positionX="598" positionY="384" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="freeMemory" infiniteServer="false" name="freeMemory" nameOffsetX="0" nameOffsetY="0" player="0" positionX="104" positionY="472" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="startFirst" infiniteServer="false" name="startFirst" nameOffsetX="0" nameOffsetY="0" player="0" positionX="277" positionY="548" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="startNext" infiniteServer="false" name="startNext" nameOffsetX="0" nameOffsetY="0" player="0" positionX="469" positionY="468" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="suspend" infiniteServer="false" name="suspend" nameOffsetX="0" nameOffsetY="0" player="0" positionX="606" positionY="552" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskOnDisk" target="startLoading" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="431" yCoord="159"/>
+      <arcpath arcPointType="false" id="1" xCoord="294" yCoord="159"/>
+      <arcpath arcPointType="false" id="2" xCoord="284" yCoord="213"/>
+    </arc>
+    <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startLoading" target="LoadingMem" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="287" yCoord="224"/>
+      <arcpath arcPointType="false" id="1" xCoord="287" yCoord="301"/>
+    </arc>
+    <arc id="A2" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="LoadingMem" target="endLoading" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="287" yCoord="331"/>
+      <arcpath arcPointType="false" id="1" xCoord="286" yCoord="394"/>
+    </arc>
+    <arc id="A3" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endLoading" target="TaskOnDisk" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="297" yCoord="394"/>
+      <arcpath arcPointType="false" id="1" xCoord="438" yCoord="171"/>
+    </arc>
+    <arc id="A4" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startUnload" target="TransferToDisk" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="618" yCoord="394"/>
+      <arcpath arcPointType="false" id="1" xCoord="615" yCoord="345"/>
+      <arcpath arcPointType="false" id="2" xCoord="615" yCoord="319"/>
+    </arc>
+    <arc id="A5" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TransferToDisk" target="endUnload" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="611" yCoord="289"/>
+      <arcpath arcPointType="false" id="1" xCoord="595" yCoord="217"/>
+    </arc>
+    <arc id="A6" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="TaskOnDisk" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="586" yCoord="207"/>
+      <arcpath arcPointType="false" id="1" xCoord="587" yCoord="154"/>
+      <arcpath arcPointType="false" id="2" xCoord="464" yCoord="157"/>
+      <arcpath arcPointType="false" id="3" xCoord="461" yCoord="158"/>
+    </arc>
+    <arc id="A7" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="DiskControllerUnit" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="581" yCoord="217"/>
+      <arcpath arcPointType="false" id="1" xCoord="502" yCoord="318"/>
+      <arcpath arcPointType="false" id="2" xCoord="455" yCoord="390"/>
+    </arc>
+    <arc id="A8" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="DiskControllerUnit" target="startLoading" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="436" yCoord="391"/>
+      <arcpath arcPointType="false" id="1" xCoord="287" yCoord="224"/>
+    </arc>
+    <arc id="A9" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endLoading" target="DiskControllerUnit" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="307" yCoord="399"/>
+      <arcpath arcPointType="false" id="1" xCoord="431" yCoord="402"/>
+    </arc>
+    <arc id="A10" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="DiskControllerUnit" target="startUnload" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="461" yCoord="402"/>
+      <arcpath arcPointType="false" id="1" xCoord="598" yCoord="399"/>
+    </arc>
+    <arc id="A11" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskOnDisk" target="startUnload" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="455" yCoord="171"/>
+      <arcpath arcPointType="false" id="1" xCoord="607" yCoord="394"/>
+    </arc>
+    <arc id="A12" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endLoading" target="TaskReady" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="292" yCoord="404"/>
+      <arcpath arcPointType="false" id="1" xCoord="289" yCoord="472"/>
+    </arc>
+    <arc id="A13" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskReady" target="freeMemory" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="274" yCoord="487"/>
+      <arcpath arcPointType="false" id="1" xCoord="134" yCoord="487"/>
+    </arc>
+    <arc id="A14" inscription="1" nameOffsetX="0" nameOffsetY="0" source="freeMemory" target="FreeMemSegment" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="118" yCoord="482"/>
+      <arcpath arcPointType="false" id="1" xCoord="120" yCoord="269"/>
+      <arcpath arcPointType="false" id="2" xCoord="121" yCoord="237"/>
+    </arc>
+    <arc id="A15" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="FreeMemSegment" target="startLoading" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="135" yCoord="222"/>
+      <arcpath arcPointType="false" id="1" xCoord="277" yCoord="219"/>
+    </arc>
+    <arc id="A16" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskReady" target="startFirst" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="290" yCoord="502"/>
+      <arcpath arcPointType="false" id="1" xCoord="296" yCoord="558"/>
+    </arc>
+    <arc id="A17" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startFirst" target="ExecutingTask" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="292" yCoord="568"/>
+      <arcpath arcPointType="false" id="1" xCoord="291" yCoord="657"/>
+      <arcpath arcPointType="false" id="2" xCoord="431" yCoord="646"/>
+    </arc>
+    <arc id="A18" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ExecutingTask" target="suspend" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="461" yCoord="645"/>
+      <arcpath arcPointType="false" id="1" xCoord="627" yCoord="648"/>
+      <arcpath arcPointType="false" id="2" xCoord="622" yCoord="572"/>
+    </arc>
+    <arc id="A19" inscription="1" nameOffsetX="0" nameOffsetY="0" source="suspend" target="TaskSuspended" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="621" yCoord="562"/>
+      <arcpath arcPointType="false" id="1" xCoord="622" yCoord="498"/>
+      <arcpath arcPointType="false" id="2" xCoord="622" yCoord="495"/>
+    </arc>
+    <arc id="A20" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskSuspended" target="startUnload" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="616" yCoord="465"/>
+      <arcpath arcPointType="false" id="1" xCoord="608" yCoord="404"/>
+    </arc>
+    <arc id="A21" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskSuspended" target="startNext" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="604" yCoord="481"/>
+      <arcpath arcPointType="false" id="1" xCoord="499" yCoord="484"/>
+    </arc>
+    <arc id="A22" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startNext" target="ExecutingTask" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="484" yCoord="488"/>
+      <arcpath arcPointType="false" id="1" xCoord="493" yCoord="594"/>
+      <arcpath arcPointType="false" id="2" xCoord="456" yCoord="634"/>
+    </arc>
+    <arc id="A23" inscription="1" nameOffsetX="0" nameOffsetY="0" source="suspend" target="CPUUnit" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="606" yCoord="567"/>
+      <arcpath arcPointType="false" id="1" xCoord="456" yCoord="564"/>
+    </arc>
+    <arc id="A24" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="CPUUnit" target="startNext" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="440" yCoord="548"/>
+      <arcpath arcPointType="false" id="1" xCoord="432" yCoord="482"/>
+      <arcpath arcPointType="false" id="2" xCoord="469" yCoord="484"/>
+    </arc>
+    <arc id="A25" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="CPUUnit" target="startFirst" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="426" yCoord="564"/>
+      <arcpath arcPointType="false" id="1" xCoord="314" yCoord="564"/>
+      <arcpath arcPointType="false" id="2" xCoord="307" yCoord="564"/>
+    </arc>
+    <arc id="A26" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="TaskReady" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="581" yCoord="217"/>
+      <arcpath arcPointType="false" id="1" xCoord="502" yCoord="433"/>
+      <arcpath arcPointType="false" id="2" xCoord="355" yCoord="445"/>
+      <arcpath arcPointType="false" id="3" xCoord="302" yCoord="479"/>
+    </arc>
+  </net>
+  <k-bound bound="3"/>
+  <feature isGame="false" isTimed="false"/>
+</pnml>
